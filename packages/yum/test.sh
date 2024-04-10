@@ -81,6 +81,10 @@ if [ "${run_test}" = "yes" ]; then
     gcc \
     make \
     redhat-rpm-config
+
+  # timeout 0.4.1 or later require Ruby 2.6.0 or later but AlmaLinux 8 ships
+  # Ruby 2.5.
+  MAKEFLAGS=-j$(nproc) gem install timeout -v '0.4.0'
   MAKEFLAGS=-j$(nproc) gem install grntest
 
   export TZ=Asia/Tokyo
