@@ -798,10 +798,18 @@ jobs:
             --groonga-install-prefix="${Env:FULL_INSTALL_FOLDER}"
       - name: "Test: HTTP: reference count: Apache Arrow: chunked"
         run: |
-          # Check if Groonga server is running
-          Get-Process -Name "groonga" | Format-Table -AutoSize
-          # Check if port 50043 is in use
-          netstat -an | findstr 50043
+          try {
+            # Check if Groonga server is running
+            Get-Process -Name "groonga" | Format-Table -AutoSize
+          } catch {
+            Write-Host "Groonga process not found, continuing..."
+          }
+          try {
+            # Check if port 50043 is in use
+            netstat -an | findstr 50043
+          } catch {
+            Write-Host "Port 50043 is not in use, continuing..."
+          }
           $Env:GRN_ENABLE_REFERENCE_COUNT = "yes"
           grntest `
             --base-directory test\command `
