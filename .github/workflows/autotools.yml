@@ -186,6 +186,17 @@ jobs:
       - name: Install packages
         run: |
           brew bundle
+      - uses: actions/checkout@v4
+        with:
+          path: msgpack-c
+          ref: fix-ignored-includedir
+          repository: otegami/msgpack-c
+      - name: Build msgpack-c
+        run: |
+          cd msgpack-c
+          cmake -S . -B ../msgpack-c.build -DCMAKE_INSTALL_PREFIX=/usr/local
+          cmake --build ../msgpack-c.build
+          sudo cmake --install ../msgpack-c.build
       - name: Prepare ccache
         run: |
           echo "CCACHE_DIR=${PWD}/ccache" >> ${GITHUB_ENV}
