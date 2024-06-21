@@ -194,7 +194,9 @@ jobs:
       - name: Build msgpack-c
         run: |
           cd msgpack-c
-          cmake -S . -B ../msgpack-c.build -DCMAKE_INSTALL_PREFIX=/usr/local
+          cmake -S . -B ../msgpack-c.build -DCMAKE_INSTALL_PREFIX=/usr/local \
+                                           -DCMAKE_INSTALL_LIBDIR=lib \
+                                           -DCMAKE_INSTALL_INCLUDEDIR=include
           cmake --build ../msgpack-c.build
           sudo cmake --install ../msgpack-c.build
       - name: Prepare ccache
