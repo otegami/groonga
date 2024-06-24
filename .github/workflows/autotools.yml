@@ -189,8 +189,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: msgpack-c
-          ref: fix-ignored-includedir
-          repository: otegami/msgpack-c
+          ref: c-6.0.2
+          repository: msgpack/msgpack-c
       - name: Build msgpack-c
         run: |
           cd msgpack-c
