@@ -186,6 +186,7 @@ jobs:
       - name: Install packages
         run: |
           brew bundle
+          brew update
       - name: Prepare ccache
         run: |
           echo "CCACHE_DIR=${PWD}/ccache" >> ${GITHUB_ENV}
