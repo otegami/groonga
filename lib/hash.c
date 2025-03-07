@@ -4328,6 +4328,14 @@ grn_hash_delete(grn_ctx *ctx, grn_hash *hash, const void *key, uint32_t key_size
   }
 }
 
+static grn_hash_cursor *
+grn_hash_cursor_open_by_key(grn_ctx *ctx, grn_hash *hash,
+                            const void *min, uint32_t min_size,
+                            const void *max, uint32_t max_size,
+                            int offset, int limit, int flags)
+{
+}
+
 void
 grn_hash_cursor_close(grn_ctx *ctx, grn_hash_cursor *c)
 {
@@ -4350,6 +4358,17 @@ grn_hash_cursor_open(grn_ctx *ctx, grn_hash *hash,
     return NULL;
   }
   if (!(c = GRN_CALLOC(sizeof(grn_hash_cursor)))) { return NULL; }
+  if ((flags & GRN_CURSOR_BY_KEY)) {
+    return grn_hash_cursor_open_by_key(ctx,
+                                       hash,
+                                       min,
+                                       min_size,
+                                       max,
+                                       max_size,
+                                       offset,
+                                       limit,
+                                       flags);
+  }
   GRN_DB_OBJ_SET_TYPE(c, GRN_CURSOR_TABLE_HASH_KEY);
   c->hash = hash;
   c->ctx = ctx;
