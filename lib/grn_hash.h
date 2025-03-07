@@ -299,6 +299,14 @@ struct _grn_hash_header_large {
   grn_id garbages[GRN_HASH_MAX_KEY_SIZE_LARGE];
 };
 
+struct _grn_hash_cursor_sorted_entires {
+  grn_id *sorted_entries;
+  uint32_t n_entries;
+  uint32_t curr_idx;
+};
+
+typedef struct _grn_hash_cursor_sorted_entires grn_hash_cursor_sorted_entires;
+
 struct _grn_hash_cursor {
   grn_db_obj obj;
   grn_hash *hash;
@@ -307,6 +315,7 @@ struct _grn_hash_cursor {
   grn_id tail;
   unsigned int rest;
   int dir;
+  grn_hash_cursor_sorted_entires *sorted_entries;
 };
 
 /* deprecated */
