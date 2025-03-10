@@ -4328,10 +4328,66 @@ grn_hash_delete(grn_ctx *ctx, grn_hash *hash, const void *key, uint32_t key_size
   }
 }
 
+static grn_hash_cursor *
+grn_hash_cursor_open_by_key(grn_ctx *ctx, grn_hash *hash,
+                            const void *min, uint32_t min_size,
+                            const void *max, uint32_t max_size,
+                            int offset, int limit, int flags)
+{
+  int dir;
+  grn_hash_cursor *c;
+  if (!ctx || !hash) {
+    return NULL;
+  }
+  if (!(c = GRN_CALLOC(sizeof(grn_hash_cursor)))) {
+    return NULL;
+  }
+  GRN_DB_OBJ_SET_TYPE(c, GRN_CURSOR_TABLE_HASH_KEY);
+  c->ctx  = ctx;
+  c->hash = hash;
+  c->obj.header.flags = (grn_obj_flags){flags};
+  c->obj.header.domain = GRN_ID_NIL;
+  c->dir = dir = 1; // TODO: support for decendin order.
+
+  // TODO: Is GRN_ARRAY_TINY really enough?
+  grn_array *sorted = grn_array_create(ctx, NULL, sizeof(grn_id), GRN_ARRAY_TINY);
+  if (!sorted) {
+    GRN_LOG(ctx,
+            GRN_LOG_ALERT,
+            "grn_hash_sort on grn_hash_cursor_open_by_key failed !");
+    grn_hash_close(ctx, hash);
+    return NULL;
+  }
+  grn_table_sort_optarg sort_opt = {0};
+  int n_sorted = grn_hash_sort(ctx, c->hash, limit, sorted, &sort_opt);
+  if (n_sorted == 0) {
+    grn_array_close(ctx, sorted);
+    return NULL;
+  }
+
+  size_t start_idx = (offset > 0) ? offset : 0;
+  grn_hash_cursor_sorted_entries *sorted_entries =
+    GRN_MALLOC(sizeof(grn_hash_cursor_sorted_entries));
+  if (!sorted_entries) {
+    grn_array_close(ctx, sorted);
+    return NULL;
+  }
+  sorted_entries->sorted_entries = sorted;
+  sorted_entries->n_entries = grn_array_size(ctx, sorted);
+  sorted_entries->curr = start_idx;
+  c->sorted_entries = sorted_entries;
+  c->rest = (limit < 0) ? GRN_ARRAY_MAX : (unsigned int)limit;
+
+  return c;
+}
+
 void
 grn_hash_cursor_close(grn_ctx *ctx, grn_hash_cursor *c)
 {
   GRN_ASSERT(c->ctx == ctx);
+  if (c->sorted_entries) {
+    GRN_FREE(c->sorted_entries);
+  }
   GRN_FREE(c);
 }
 
@@ -4350,6 +4406,17 @@ grn_hash_cursor_open(grn_ctx *ctx, grn_hash *hash,
     return NULL;
   }
   if (!(c = GRN_CALLOC(sizeof(grn_hash_cursor)))) { return NULL; }
+  if (!(flags & GRN_CURSOR_BY_ID)) {
+    return grn_hash_cursor_open_by_key(ctx,
+                                       hash,
+                                       min,
+                                       min_size,
+                                       max,
+                                       max_size,
+                                       offset,
+                                       limit,
+                                       flags);
+  }
   GRN_DB_OBJ_SET_TYPE(c, GRN_CURSOR_TABLE_HASH_KEY);
   c->hash = hash;
   c->ctx = ctx;
@@ -4415,13 +4482,24 @@ grn_id
 grn_hash_cursor_next(grn_ctx *ctx, grn_hash_cursor *c)
 {
   if (c && c->rest) {
-    while (c->curr_rec != c->tail) {
-      c->curr_rec = (grn_id)((int64_t)(c->curr_rec) + c->dir);
-      if (*c->hash->n_entries != HASH_CURR_MAX(c->hash)) {
-        if (!grn_hash_bitmap_at(ctx, c->hash, c->curr_rec)) { continue; }
-      }
+    if (c->sorted_entries) {
+      grn_hash_cursor_sorted_entries *se = c->sorted_entries;
+      if (se->curr >= se->n_entries)
+        return GRN_ID_NIL;
+      grn_array *array = se->sorted_entries;
+      grn_id id = grn_array_at(ctx, array, se->curr);
+      se->curr++;
       c->rest--;
-      return c->curr_rec;
+      return id;
+    } else {
+      while (c->curr_rec != c->tail) {
+        c->curr_rec = (grn_id)((int64_t)(c->curr_rec) + c->dir);
+        if (*c->hash->n_entries != HASH_CURR_MAX(c->hash)) {
+          if (!grn_hash_bitmap_at(ctx, c->hash, c->curr_rec)) { continue; }
+        }
+        c->rest--;
+        return c->curr_rec;
+      }
     }
   }
   return GRN_ID_NIL;

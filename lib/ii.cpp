@@ -17298,6 +17298,7 @@ namespace grn::ii {
           }
         }
         value = global_tid;
+        printf("flush_term[%d] %u\n", n_blocks_, global_tid);
         p = file_buf_ + file_buf_offset_;
         if (value < 1U << 5) {
           p[0] = static_cast<uint8_t>(value);
@@ -17513,6 +17514,7 @@ namespace grn::ii {
         }
         auto n_processed_records = block_builder->n_processed_records();
         if (block_builder->have_data()) {
+          printf("offset: %u\n", offset);
           auto rc = flush_block_builder(block_builder.get());
           if (rc != GRN_SUCCESS) {
             break;
@@ -18294,6 +18296,7 @@ namespace grn::ii {
           return rc;
         }
         blocks_[i].tid = static_cast<grn_id>(value);
+        printf("block[%d].tid = %u\n", i, blocks_[i].tid);
       }
 
       auto cursor = grn_table_cursor_open(ctx_,
@@ -18306,14 +18309,17 @@ namespace grn::ii {
                                           -1,
                                           GRN_CURSOR_BY_KEY);
       for (;;) {
+        printf("type: %u\n", ii_->lexicon->header.type);
         grn_id tid = grn_table_cursor_next(ctx_, cursor);
         if (tid == GRN_ID_NIL) {
           break;
         }
+        printf("commit: tid: %u\n", tid);
         chunk_.tid = tid;
         chunk_.rid = GRN_ID_NIL;
         df_ = 0;
         for (uint32_t i = 0; i < n_blocks_; i++) {
+          printf("block[%d].tid: %u == tid: %u\n", i, blocks_[i].tid, tid);
           if (tid == blocks_[i].tid) {
             auto rc = read_to_chunk(i);
             if (rc != GRN_SUCCESS) {
