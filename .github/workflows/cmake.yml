@@ -77,6 +77,9 @@ jobs:
             mruby: "OFF"
           - cc: clang
             cxx: clang++
+          - cc: clang
+            cxx: clang++
+            ubsan: "ON"
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
@@ -140,7 +143,8 @@ jobs:
             rapidjson-dev \
             ruby-dev \
             zlib1g-dev
-      - name: CMake
+      - name: CMake (Without UBSAN)
+        if: matrix.ubsan != 'ON'
         run: |
           ccache --show-stats --verbose --version || :
           cmake \
@@ -153,6 +157,27 @@ jobs:
             -DGRN_WITH_APACHE_ARROW=ON \
             -DGRN_WITH_BLOSC=auto \
             -DGRN_WITH_MRUBY=${GRN_WITH_MRUBY:-ON}
+      - name: CMake (with UBSAN)
+        if: matrix.ubsan == 'ON'
+        run: |
+          ccache --show-stats --verbose --version || :
+          CLANG_VER=$(clang -dumpversion | cut -d. -f1)
+          CLANG_LIBRARY_PATH="/usr/lib/clang/${CLANG_VER}/lib/linux:${LD_LIBRARY_PATH}"
+          ls -la /usr/lib/clang/${CLANG_VER}/lib/linux
+          echo "LD_LIBRARY_PATH=${CLANG_LIBRARY_PATH}" >> ${GITHUB_ENV}
+          cmake \
+            -B ../groonga.build \
+            -S . \
+            -GNinja \
+            -DCMAKE_INSTALL_PREFIX=$PWD/install \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DGRN_ALLOW_WARNING=OFF \
+            -DGRN_WITH_APACHE_ARROW=ON \
+            -DGRN_WITH_BLOSC=auto \
+            -DGRN_WITH_MRUBY=${GRN_WITH_MRUBY:-ON} \
+            -DCMAKE_C_FLAGS="-fsanitize=undefined" \
+            -DCMAKE_CXX_FLAGS="-fsanitize=undefined" \
+            -DCMAKE_EXE_LINKER_FLAGS="-L${CLANG_LIBRARY_PATH} -lclang_rt.ubsan_standalone-x86_64"
       - name: Build
         run: |
           ninja -C ../groonga.build
@@ -163,7 +188,7 @@ jobs:
       - name: Set environment variables
         run: |
           echo "COLUMNS=79" >> ${GITHUB_ENV}
-          echo "LD_LIBRARY_PATH=$PWD/install/lib" >> ${GITHUB_ENV}
+          echo "LD_LIBRARY_PATH=$PWD/install/lib:${LD_LIBRARY_PATH}" >> ${GITHUB_ENV}
           echo "PKG_CONFIG_PATH=$PWD/lib/pkgconfig" >> ${GITHUB_ENV}
           echo "TZ=Asia/Tokyo" >> ${GITHUB_ENV}
           if [ "${{ matrix.cc }}" == "gcc" -a \
