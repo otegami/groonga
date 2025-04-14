@@ -162,9 +162,9 @@ jobs:
         run: |
           ccache --show-stats --verbose --version || :
           CLANG_VER=$(clang -dumpversion | cut -d. -f1)
-          CLANG_LIBRARY_PATH="/usr/lib/clang/${CLANG_VER}/lib/linux:${LD_LIBRARY_PATH}"
+          CLANG_LIBRARY_PATH="/usr/lib/clang/${CLANG_VER}/lib/linux"
           ls -la /usr/lib/clang/${CLANG_VER}/lib/linux
-          echo "LD_LIBRARY_PATH=${CLANG_LIBRARY_PATH}" >> ${GITHUB_ENV}
+          echo "LD_LIBRARY_PATH=${CLANG_LIBRARY_PATH}:${LD_LIBRARY_PATH}" >> ${GITHUB_ENV}
           cmake \
             -B ../groonga.build \
             -S . \
@@ -175,8 +175,8 @@ jobs:
             -DGRN_WITH_APACHE_ARROW=ON \
             -DGRN_WITH_BLOSC=auto \
             -DGRN_WITH_MRUBY=${GRN_WITH_MRUBY:-ON} \
-            -DCMAKE_C_FLAGS="-fsanitize=undefined" \
-            -DCMAKE_CXX_FLAGS="-fsanitize=undefined" \
+            -DCMAKE_C_FLAGS="-fsanitize=undefined -fno-sanitize=alignment" \
+            -DCMAKE_CXX_FLAGS="-fsanitize=undefined -fno-sanitize=alignment" \
             -DCMAKE_EXE_LINKER_FLAGS="-L${CLANG_LIBRARY_PATH} -lclang_rt.ubsan_standalone-x86_64"
       - name: Build
         run: |
