@@ -4555,7 +4555,23 @@ grn_select_output_slice_label_v1(grn_ctx *ctx,
 {
   if (grn_ctx_get_output_type(ctx) == GRN_CONTENT_APACHE_ARROW) {
     ctx->impl->output.arrow_metadata_data_type = "slice";
-    ctx->impl->output.arrow_metadata_label = slice->label;
+    if (ctx->impl->output.arrow_metadata_label.value) {
+      GRN_FREE((char *)(ctx->impl->output.arrow_metadata_label.value));
+    }
+    if (slice->label.length > 0) {
+      ctx->impl->output.arrow_metadata_label.value =
+        (const char *)GRN_MALLOC(slice->label.length);
+      if (ctx->impl->output.arrow_metadata_label.value) {
+        grn_memcpy((char *)(ctx->impl->output.arrow_metadata_label.value),
+                   slice->label.value,
+                   slice->label.length);
+        ctx->impl->output.arrow_metadata_label.length = slice->label.length;
+      } else {
+        GRN_RAW_STRING_INIT(ctx->impl->output.arrow_metadata_label);
+      }
+    } else {
+      GRN_RAW_STRING_INIT(ctx->impl->output.arrow_metadata_label);
+    }
     return;
   }
 
@@ -4592,7 +4608,23 @@ grn_select_output_drilldown_label_v1(grn_ctx *ctx,
 {
   if (grn_ctx_get_output_type(ctx) == GRN_CONTENT_APACHE_ARROW) {
     ctx->impl->output.arrow_metadata_data_type = "drilldown";
-    ctx->impl->output.arrow_metadata_label = drilldown->label;
+    if (ctx->impl->output.arrow_metadata_label.value) {
+      GRN_FREE((char *)(ctx->impl->output.arrow_metadata_label.value));
+    }
+    if (drilldown->label.length > 0) {
+      ctx->impl->output.arrow_metadata_label.value =
+        (const char *)GRN_MALLOC(drilldown->label.length);
+      if (ctx->impl->output.arrow_metadata_label.value) {
+        grn_memcpy((char *)(ctx->impl->output.arrow_metadata_label.value),
+                   drilldown->label.value,
+                   drilldown->label.length);
+        ctx->impl->output.arrow_metadata_label.length = drilldown->label.length;
+      } else {
+        GRN_RAW_STRING_INIT(ctx->impl->output.arrow_metadata_label);
+      }
+    } else {
+      GRN_RAW_STRING_INIT(ctx->impl->output.arrow_metadata_label);
+    }
     return;
   }
 
@@ -4641,7 +4673,23 @@ grn_select_output_slice_label_v3(grn_ctx *ctx,
 {
   if (grn_ctx_get_output_type(ctx) == GRN_CONTENT_APACHE_ARROW) {
     ctx->impl->output.arrow_metadata_data_type = "slice";
-    ctx->impl->output.arrow_metadata_label = slice->label;
+    if (ctx->impl->output.arrow_metadata_label.value) {
+      GRN_FREE((char *)(ctx->impl->output.arrow_metadata_label.value));
+    }
+    if (slice->label.length > 0) {
+      ctx->impl->output.arrow_metadata_label.value =
+        (const char *)GRN_MALLOC(slice->label.length);
+      if (ctx->impl->output.arrow_metadata_label.value) {
+        grn_memcpy((char *)(ctx->impl->output.arrow_metadata_label.value),
+                   slice->label.value,
+                   slice->label.length);
+        ctx->impl->output.arrow_metadata_label.length = slice->label.length;
+      } else {
+        GRN_RAW_STRING_INIT(ctx->impl->output.arrow_metadata_label);
+      }
+    } else {
+      GRN_RAW_STRING_INIT(ctx->impl->output.arrow_metadata_label);
+    }
     return;
   }
   GRN_OUTPUT_STR(slice->label.value, slice->label.length);
@@ -4677,7 +4725,23 @@ grn_select_output_drilldown_label_v3(grn_ctx *ctx,
 {
   if (grn_ctx_get_output_type(ctx) == GRN_CONTENT_APACHE_ARROW) {
     ctx->impl->output.arrow_metadata_data_type = "drilldown";
-    ctx->impl->output.arrow_metadata_label = drilldown->label;
+    if (ctx->impl->output.arrow_metadata_label.value) {
+      GRN_FREE((char *)(ctx->impl->output.arrow_metadata_label.value));
+    }
+    if (drilldown->label.length > 0) {
+      ctx->impl->output.arrow_metadata_label.value =
+        (const char *)GRN_MALLOC(drilldown->label.length);
+      if (ctx->impl->output.arrow_metadata_label.value) {
+        grn_memcpy((char *)(ctx->impl->output.arrow_metadata_label.value),
+                   drilldown->label.value,
+                   drilldown->label.length);
+        ctx->impl->output.arrow_metadata_label.length = drilldown->label.length;
+      } else {
+        GRN_RAW_STRING_INIT(ctx->impl->output.arrow_metadata_label);
+      }
+    } else {
+      GRN_RAW_STRING_INIT(ctx->impl->output.arrow_metadata_label);
+    }
     return;
   }
   GRN_OUTPUT_STR(drilldown->label.value, drilldown->label.length);
