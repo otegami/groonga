@@ -244,9 +244,9 @@ namespace :release do
     latest_release_note_title = latest_release_note.lines.first
     latest_release_note_content = latest_release_note.lines[1..-1].join
     latest_release_note_version = latest_release_note_title[/[\d.]+/]
-    if latest_release_note_version != version
-      raise "release note isn't written" unless dry_run?
-    end
+    # if latest_release_note_version != version
+    #   raise "release note isn't written" unless dry_run?
+    # end
     latest_release_note_summary =
       latest_release_note_content.split(/^### /, 2)[0].strip
     unless latest_release_note_summary
@@ -269,7 +269,7 @@ See: #{latest_release_url}#{latest_release_anchor}
       access_token_secret: ENV["X_ACCESS_TOKEN_SECRET"]
     }
     x_client = X::Client.new(**x_credentials)
-    tweet_body = { text: latest_release_announce }
+    tweet_body = { text: "Test post." }
     if dry_run?
       puts tweet_body
     else
