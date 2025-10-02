@@ -19,37 +19,37 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - name: Download artifacts
-        if: |
-          github.ref_type == 'tag'
-        timeout-minutes: 60
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          workflows=(cmake.yml document.yml package.yml)
-          for workflow in "${workflows[@]}"; do
-            run_id=""
-            while true; do
-              echo "Waiting for run to start ${workflow}..."
-              run_id=$(gh run list \
-                         --branch ${GITHUB_REF_NAME} \
-                         --jq '.[].databaseId' \
-                         --json databaseId \
-                         --limit 1 \
-                         --workflow ${workflow})
-              if [ -n "${run_id}" ]; then
-                break
-              fi
-              sleep 300
-            done
-            gh run watch \
-              --exit-status \
-              --interval 300 \
-              ${run_id}
-            gh run download ${run_id} \
-              --dir release-artifacts \
-              --pattern "release-*"
-          done
+      # - name: Download artifacts
+      #   if: |
+      #     github.ref_type == 'tag'
+      #   timeout-minutes: 60
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #   run: |
+      #     workflows=(cmake.yml document.yml package.yml)
+      #     for workflow in "${workflows[@]}"; do
+      #       run_id=""
+      #       while true; do
+      #         echo "Waiting for run to start ${workflow}..."
+      #         run_id=$(gh run list \
+      #                    --branch ${GITHUB_REF_NAME} \
+      #                    --jq '.[].databaseId' \
+      #                    --json databaseId \
+      #                    --limit 1 \
+      #                    --workflow ${workflow})
+      #         if [ -n "${run_id}" ]; then
+      #           break
+      #         fi
+      #         sleep 300
+      #       done
+      #       gh run watch \
+      #         --exit-status \
+      #         --interval 300 \
+      #         ${run_id}
+      #       gh run download ${run_id} \
+      #         --dir release-artifacts \
+      #         --pattern "release-*"
+      #     done
       - name: Generate release note
         env:
           GH_TOKEN: ${{ github.token }}
@@ -102,46 +102,46 @@ jobs:
           version_hyphen=$(echo ${version} | tr . -)
           echo "  * [Japanese](https://groonga.org/ja/docs/news/${major_version}.html#release-${version_hyphen})" | \
             tee -a release-note.md
-      - name: Publish release page
-        if: |
-          github.ref_type == 'tag'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          title="$(head -n1 release-note.md | sed -e 's/^## //')"
-          tail -n +2 release-note.md > release-note-without-version.md
-          gh release create "${GITHUB_REF_NAME}" \
-            --discussion-category Releases \
-            --notes-file release-note-without-version.md \
-            --title "${title}" \
-            release-artifacts/*/*
-      - name: Prepare for Launchpad publishing
-        if: |
-          github.ref_type == 'tag'
-        run: |
-          cp release-artifacts/release-source/groonga-*.tar.gz ./
-          sudo apt update
-          sudo apt install -y \
-            build-essential \
-            debhelper \
-            devscripts
-      - uses: actions/checkout@v5
-        if: |
-          github.ref_type == 'tag'
-        with:
-          path: apache-arrow
-          repository: apache/arrow
-      - name: Publish to Launchpad
-        if: |
-          github.ref_type == 'tag'
-        env:
-          APACHE_ARROW_REPOSITORY: ${{ github.workspace }}/apache-arrow
-          LAUNCHPAD_DEPLOY_KEY: ${{ secrets.LAUNCHPAD_DEPLOY_KEY }}
-          LAUNCHPAD_UPLOADER_PGP_KEY: "0x32862FBCD63D72C152EFF3A9BD481CAA9168EA87"
-        run: |
-          echo "${LAUNCHPAD_DEPLOY_KEY}" | gpg --import
-          echo "trusted-key ${LAUNCHPAD_UPLOADER_PGP_KEY}" > ~/.gnupg/gpg.conf
-          rake -C packages ubuntu
+      # - name: Publish release page
+      #   if: |
+      #     github.ref_type == 'tag'
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #   run: |
+      #     title="$(head -n1 release-note.md | sed -e 's/^## //')"
+      #     tail -n +2 release-note.md > release-note-without-version.md
+      #     gh release create "${GITHUB_REF_NAME}" \
+      #       --discussion-category Releases \
+      #       --notes-file release-note-without-version.md \
+      #       --title "${title}" \
+      #       release-artifacts/*/*
+      # - name: Prepare for Launchpad publishing
+      #   if: |
+      #     github.ref_type == 'tag'
+      #   run: |
+      #     cp release-artifacts/release-source/groonga-*.tar.gz ./
+      #     sudo apt update
+      #     sudo apt install -y \
+      #       build-essential \
+      #       debhelper \
+      #       devscripts
+      # - uses: actions/checkout@v5
+      #   if: |
+      #     github.ref_type == 'tag'
+      #   with:
+      #     path: apache-arrow
+      #     repository: apache/arrow
+      # - name: Publish to Launchpad
+      #   if: |
+      #     github.ref_type == 'tag'
+      #   env:
+      #     APACHE_ARROW_REPOSITORY: ${{ github.workspace }}/apache-arrow
+      #     LAUNCHPAD_DEPLOY_KEY: ${{ secrets.LAUNCHPAD_DEPLOY_KEY }}
+      #     LAUNCHPAD_UPLOADER_PGP_KEY: "0x32862FBCD63D72C152EFF3A9BD481CAA9168EA87"
+      #   run: |
+      #     echo "${LAUNCHPAD_DEPLOY_KEY}" | gpg --import
+      #     echo "trusted-key ${LAUNCHPAD_UPLOADER_PGP_KEY}" > ~/.gnupg/gpg.conf
+      #     rake -C packages ubuntu
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ruby
