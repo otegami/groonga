@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760515480262,
+  "lastUpdate": 1760517130485,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -612,6 +612,108 @@ window.BENCHMARK_DATA = {
             "value": 0.026335255999981655,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.0017189999999993044 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "1ea199ea0d2a15b55fa5de8093e4883cd672694a",
+          "message": "support Clang flags to suppress this warning\n\n```\nrm -rf ../llama.cpp.build && \\\ncmake \\\n  -S . \\\n  -B ../llama.cpp.build \\\n  --preset=x64-linux-gcc-debug \\\n  -DCMAKE_C_COMPILER=clang \\\n  -DCMAKE_CXX_COMPILER=clang++ \\\n  -DCMAKE_INSTALL_PREFIX=/tmp/local \\\n  -DCMAKE_C_FLAGS=\"-Wwrite-strings -Werror=incompatible-pointer-types-discards-qualifiers\" && \\\ncmake --build ../llama.cpp.build/\n...\n/home/otegami/work/cpp/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.c:3572:24: error: passing 'const char[18]' to parameter of type 'char *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]\n 3572 |                 putenv(\"KMP_BLOCKTIME=200\"); // 200ms\n      |                        ^~~~~~~~~~~~~~~~~~~\n```",
+          "timestamp": "2025-10-15T17:26:10+09:00",
+          "tree_id": "f1a42fe062a5aa612986ad421650d967ad14db1a",
+          "url": "https://github.com/otegami/groonga/commit/1ea199ea0d2a15b55fa5de8093e4883cd672694a"
+        },
+        "date": 1760517129621,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.39741185099995846,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.020392000000000132 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.27378675799985785,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.01376199999999983 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.016064795000033882,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00056400000000012 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.021746214999950553,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0006599999999999939 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.9283918190000122,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.00022199999999994446 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.2579595880001193,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.009565999999999922 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.14814454599996907,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.008782000000000428 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.018208083000104125,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0026370000000001392 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.017051023999954396,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0017399999999998528 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.07139292899995553,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.008328999999999448 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.0781236590000276,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.009714999999999752 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.018998946999886357,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.002573999999999854 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.028022222000060992,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0024700000000003886 s\nthreads: undefined"
           }
         ]
       }
