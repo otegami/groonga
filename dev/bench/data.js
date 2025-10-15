@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760500593823,
+  "lastUpdate": 1760515480262,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -510,6 +510,108 @@ window.BENCHMARK_DATA = {
             "value": 0.01732537200018669,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.0015040000000001719 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "2232ccc3b50d94110a1193e48dc29c52ba0b5713",
+          "message": "cmake: suppress the `frame-larger-than` warning\n\n## Issue\n\nWe got the following error when we built Groonga with MariaDB.\n\n```\n/home/buildbot/extra/groonga/lib/cache.c:308:1: error: the frame size of 17664 bytes is larger than 16384 bytes [-Werror=frame-larger-than=]\n```\n\n## How to reproduce\n\n```console\ncmake \\\n  -S . \\\n  -B ../groonga.build \\\n  --preset=debug-default \\\n  -DCMAKE_INSTALL_PREFIX=/tmp/local \\\n  -DCMAKE_C_FLAGS=\"-Werror=frame-larger-than=16384\" && \\\ncmake --build ../groonga.build/\n...\n/home/otegami/work/c/groonga/lib/cache.c:308:1: error: the frame size of 17696 bytes is larger than 16384 bytes [-Werror=frame-larger-than=]\n  308 | }\n      | ^\n```\n\n## Cause\n\nWhen building Groonga with MariaDB, the bundled llama.cpp triggers `-Werror`.\n\n## Solution\n\nWe will suppress this warning now because there are no\neffects to Groonga.",
+          "timestamp": "2025-10-15T16:54:21+09:00",
+          "tree_id": "d159b885f48ce6da012ec7a6855ab11a1af0d928",
+          "url": "https://github.com/otegami/groonga/commit/2232ccc3b50d94110a1193e48dc29c52ba0b5713"
+        },
+        "date": 1760515479301,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.3747015749999605,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.015786999999999995 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.2825708209999789,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.014963000000000448 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.015432126999883167,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.000391000000000169 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.015080193000073905,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0003369999999998097 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.6995122570000376,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.0001700000000001145 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.2517466510001327,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00820200000000007 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.14255847000003996,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006234000000000517 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.017349179000007098,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015989999999998783 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.01656121899992513,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0016860000000003539 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.0691963669999609,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007188999999999751 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.07723683200003961,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.009338999999999542 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.01716382600000088,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0016249999999999043 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.026335255999981655,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0017189999999993044 s\nthreads: undefined"
           }
         ]
       }
