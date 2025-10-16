@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760577870526,
+  "lastUpdate": 1760581259664,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -1020,6 +1020,108 @@ window.BENCHMARK_DATA = {
             "value": 0.01453739900000528,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.0015460000000004637 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "17b3fca54361e26ca9653b207083635d074f52f2",
+          "message": "lib/operator: fix enum signedness handling for type-limits warning\n\nThe previous fix (b2a7f1a) removed the lower bound check (op >= 0) to\navoid `-Wtautological-unsigned-enum-zero-compare` warning with Clang when\ngrn_operator is unsigned. However, this breaks validation when\ngrn_operator is signed, allowing negative values to pass validation.\n\nSince the underlying type of an enum is implementation-defined, we need\nto handle both signed and unsigned cases. This change introduces a\nhelper function grn_operator_is_valid() that casts op to int before the\ncomparison.\n\nCo-Authored-By: Sutou Kouhei <kou@clear-code.com>",
+          "timestamp": "2025-10-16T11:14:51+09:00",
+          "tree_id": "adeaa0f44afb8c34ef833bbf8e6cbb381df94804",
+          "url": "https://github.com/otegami/groonga/commit/17b3fca54361e26ca9653b207083635d074f52f2"
+        },
+        "date": 1760581258866,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.3874756829998205,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.01842499999999994 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.29722127100001217,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.01931600000000014 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.015359656999976323,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0003809999999998259 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.01503387799994016,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.000406000000000184 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.4503000180000072,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.0001819999999998767 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.24689670999998725,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0056480000000000835 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.14231406600003993,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.005733000000000044 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.015726718999985678,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0014400000000000523 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.016653452000014113,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0016449999999996467 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.06777770199994393,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0070489999999997915 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.07426260400006868,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00676499999999991 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.017407479000098647,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.001574999999999993 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.017308553000134452,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0016490000000001226 s\nthreads: undefined"
           }
         ]
       }
