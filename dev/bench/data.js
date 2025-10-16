@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760527771021,
+  "lastUpdate": 1760577870526,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -918,6 +918,108 @@ window.BENCHMARK_DATA = {
             "value": 0.02579528000001119,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.001340000000000341 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "7b516c5c22b08be598ffd8f137c692e720836e52",
+          "message": "cmake: enable -Wsuggest-override warning and fix comparison\n\n## Issue\n\nWe got the following error when we built Groonga with MariaDB.\n\n```\n2040-/home/buildbot/extra/groonga/lib/dat/dat.hpp:211:21: error: 'grn::dat::ErrorCode grn::dat::Error<T>::code() const [with grn::dat::ErrorCode T = grn::dat::SIZE_ERROR]' can be marked override [-Werror=suggest-override]\n2041-  211 |   virtual ErrorCode code() const throw() {\n2042-      |                     ^~~~\n```\n\n### Hot to reproduce\n\n```\nrm -rf ../groonga.build\ncmake \\\n  -S . \\\n  -B ../groonga.build \\\n  --preset=debug-maximum \\\n  -DCMAKE_INSTALL_PREFIX=/tmp/local \\\n  -DCMAKE_CXX_FLAGS=\"-Werror=suggest-override\" && \\\ncmake --build ../groonga.build\n...\n/home/otegami/work/c/groonga/lib/dat/dat.hpp:190:23: error: ‘virtual const char* grn::dat::Exception::what() const’ can be marked override [-Werror=suggest-override]\n  190 |   virtual const char *what() const throw() {\n      |                       ^~~~\n...\n```\n\n## Causes\n\nIn MariaDB's build environment, compiler warnings are promoted to\nerrors.\nAs a result, any `-Wsuggest-override` diagnostics fail the build.\n\n## Solution\n\nThis PR adds the `override` keyword to all virtual methods that override base\nclass methods.",
+          "timestamp": "2025-10-16T10:16:45+09:00",
+          "tree_id": "de74468361779dad51b9ef0dbbfa3ef7cf2fda60",
+          "url": "https://github.com/otegami/groonga/commit/7b516c5c22b08be598ffd8f137c692e720836e52"
+        },
+        "date": 1760577869751,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.39059516200006783,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.01960100000000009 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.27425196800004414,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.01355299999999987 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.015341948000013872,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0003359999999999197 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.015235879999977442,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00038199999999999346 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.4648701239999582,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.00015599999999987846 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.24879706899992016,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007045999999999983 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.14024773800042567,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.005655999999999883 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.016839438000033624,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015390000000000958 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.01671112600001834,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.001615000000000033 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.06794663700009096,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006956000000000101 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.07622894900009669,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00731199999999968 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.017493725999770504,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0016129999999998923 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.01453739900000528,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015460000000004637 s\nthreads: undefined"
           }
         ]
       }
