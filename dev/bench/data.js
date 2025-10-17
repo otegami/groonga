@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1760581259664,
+  "lastUpdate": 1760682524792,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -1122,6 +1122,108 @@ window.BENCHMARK_DATA = {
             "value": 0.017308553000134452,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.0016490000000001226 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "a854aadd0cebc3819a34863355ec996e06511b01",
+          "message": "cmake llama.cpp: suppress the missing-braces warning\n\n## Issue\n\nWe got the following error when we built Groonga with MariaDB.\n\n```\n/home/buildbot/_deps/llama_cpp-src/src/llama-batch.h:126:48: error: missing braces around initializer for 'std::__array_traits<int, 1>::_Type' {aka 'int [1]'} [-Werror=missing-braces]\n```\n\n## Cause\n\nWhen building Groonga with MariaDB, the bundled llama.cpp triggers `-Werror`.\n\n## Solution\n\nUpstream llama.cpp doesn't setup `-Wmissing-braces`, so we suppress the warning by explicitly passing `-Wno-missing-braces` in Debug and RelWithDebInfo builds.",
+          "timestamp": "2025-10-17T15:19:04+09:00",
+          "tree_id": "c6aa06cf99adafe1c0039def05b8dabce1e94ccf",
+          "url": "https://github.com/otegami/groonga/commit/a854aadd0cebc3819a34863355ec996e06511b01"
+        },
+        "date": 1760682524075,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.4082809649999035,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.024844999999999964 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.29125299300017105,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.01894999999999991 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.015693758999873353,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00039700000000020275 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.01502627999991546,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00034700000000009723 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.4930837119999296,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.00015999999999996573 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.24702273800005514,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006590999999999986 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.14203445699968142,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006296999999999969 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.017024676000119143,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015239999999998866 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.016777439999941635,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0014389999999995795 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.06757101700020485,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0069269999999997806 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.0703067430002875,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007213999999999554 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.017516849000003276,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015599999999998393 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.023814446999836036,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015810000000002766 s\nthreads: undefined"
           }
         ]
       }
