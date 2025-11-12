@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1762922063522,
+  "lastUpdate": 1762926513414,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -2142,6 +2142,108 @@ window.BENCHMARK_DATA = {
             "value": 0.017789892000052987,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.0017459999999998865 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "8a4d3e194e3db8da054017bfd9443ef703624500",
+          "message": "ci msys2: Fix patch to only target existing mruby-source file\n\nRemove the diff for vendor/mruby-include/mruby/throw.h which doesn't\nexist in the distribution tarball. Keep only the diff for\nvendor/mruby-source/include/mruby/throw.h which is the actual file\nthat needs to be patched.",
+          "timestamp": "2025-11-12T14:41:55+09:00",
+          "tree_id": "e076ddfa1caef9c08c8a7d5a1cf54db90e271a78",
+          "url": "https://github.com/otegami/groonga/commit/8a4d3e194e3db8da054017bfd9443ef703624500"
+        },
+        "date": 1762926512162,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.383683387000076,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.016877000000000114 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.2900572950000537,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.019074999999999842 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.015599193000070954,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00034899999999971065 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.015036332999954993,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0004440000000002775 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.4480082860000039,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.0002840000000000342 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.24823797000004788,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006689000000000028 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.14238919100000658,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.005949000000000038 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.016402792000064892,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015180000000000193 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.016460672000050636,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015159999999998508 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.0649473349998857,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0069890000000004115 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.06096462200002861,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007212000000000274 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.01689337499993826,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0014870000000000438 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.017268109999974968,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0014700000000000546 s\nthreads: undefined"
           }
         ]
       }
