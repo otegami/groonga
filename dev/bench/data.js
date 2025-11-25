@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1762926513414,
+  "lastUpdate": 1764038232350,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -2244,6 +2244,108 @@ window.BENCHMARK_DATA = {
             "value": 0.017268109999974968,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.0014700000000000546 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "95e5ae73734151460870f81f774fc0a6f73b4eec",
+          "message": "windows: support ARM64\n\n## Issue\n\nCompilation fails on ARM64 Windows CI with the following error:\n\n```\nlib/windows.c:408:4: error: \"Intel x86, Intel Itanium and x64 are only supported architectures\"\n  408 | #  error \"Intel x86, Intel Itanium and x64 are only supported architectures\"\n      |    ^\n1 error generated.\n```\n\n## Cause\n\nThe stack walking code in `lib/windows.c` only supports\nIntel x86, Intel Itanium, and x64 architectures. ARM64\narchitecture was not recognized.\n\n## Solution\n\nAdd support for the `_M_ARM64` compiler macro and\nconfigure the StackWalk64 API with ARM64-specific\nregisters:\n\n- `Pc` (Program Counter)\n- `Fp` (Frame Pointer)\n- `Sp` (Stack Pointer)\n\nref: https://developer.arm.com/documentation/102374/0103/Registers-in-AArch64---other-registers\n\nAlso update the error message to include ARM64 in the list of\nsupported architectures.",
+          "timestamp": "2025-11-25T11:29:54+09:00",
+          "tree_id": "531a57f83f1524a502226c5c9f8662f8adf7ff73",
+          "url": "https://github.com/otegami/groonga/commit/95e5ae73734151460870f81f774fc0a6f73b4eec"
+        },
+        "date": 1764038231089,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.3497841009998979,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.015451000000000062 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.2706835550001756,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.016002000000000238 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.01858977500006631,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0031380000000001407 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.015347447999943142,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0003179999999995964 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.4314929789999837,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.0001570000000001015 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.22436619499995913,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007733000000000198 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.13190537699995275,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007453999999999517 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.016324430999986816,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0014709999999997225 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.016674617999967722,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015589999999999216 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.06265434499982803,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007353999999999611 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.06360536500011449,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00850800000000046 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.01756713699995771,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015589999999996995 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.01735935600004268,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0014990000000008052 s\nthreads: undefined"
           }
         ]
       }
