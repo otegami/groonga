@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1764038400166,
+  "lastUpdate": 1764137739266,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -2448,6 +2448,108 @@ window.BENCHMARK_DATA = {
             "value": 0.026603557999919758,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.001616000000000145 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "c60c663517d3cce79ba40644c588725f99355386",
+          "message": "ci windows: enable test on ARM64 (CLANGARM64)\n\nref: https://github.com/groonga/groonga/pull/2653#issuecomment-3574104758\n\nrubygems-requirements-system gem now supports MSYS2 platform\nwhich enables installing native packages with the correct prefix\n(e.g., mingw-w64-clang-aarch64-gobject-introspection for CLANGARM64).",
+          "timestamp": "2025-11-26T15:09:32+09:00",
+          "tree_id": "904cf88afd20ef093c669bf3ae80bfa74a4fbec7",
+          "url": "https://github.com/otegami/groonga/commit/c60c663517d3cce79ba40644c588725f99355386"
+        },
+        "date": 1764137738442,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.35808887199993933,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.018857999999999958 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.2637971980001339,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.014425000000000257 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.015315532999807147,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00035100000000021225 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.015233269999953336,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0003869999999999152 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.4981657450000512,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.00014499999999995072 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.22208361800005605,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007056000000000118 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.13327059400000962,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006748000000000184 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.01750277900009678,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0017630000000004586 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.017085805000078835,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0016460000000000086 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.061672160999819425,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007162999999999767 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.06605462699997133,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.008711999999999859 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.01784359299983862,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015859999999998375 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.018163743000059185,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0017159999999999953 s\nthreads: undefined"
           }
         ]
       }
