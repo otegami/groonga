@@ -653,7 +653,18 @@ jobs:
             fiddle \
             grntest \
             pkg-config \
-            red-arrow
+            red-arrow || :
+          echo "=== Debug: pkg-config command (system) ==="
+          echo "--- arrow ---"
+          pkg-config --cflags arrow
+          echo "--- arrow-glib ---"
+          pkg-config --cflags arrow-glib
+          echo "--- arrow arrow-glib ---"
+          pkg-config --cflags arrow arrow-glib
+          echo "=== Debug: PKGConfig gem (Ruby) ==="
+          ruby -e "require 'pkg-config'; puts PKGConfig.cflags('arrow')"
+          ruby -e "require 'pkg-config'; puts PKGConfig.cflags('arrow-glib')"
+          echo "=== Debug: end ==="
           ruby -e "require 'arrow'"
       - name: Prepare setup-extpp.rb
         shell: msys2 {0}
