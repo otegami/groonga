@@ -176,16 +176,40 @@ jobs:
             grntest \
             pkg-config \
             red-arrow || :
-          echo "=== Debug: pkg-config command (system) ==="
-          echo "--- arrow ---"
-          pkg-config --cflags arrow
-          echo "--- arrow-glib ---"
-          pkg-config --cflags arrow-glib
-          echo "--- arrow arrow-glib ---"
-          pkg-config --cflags arrow arrow-glib
-          echo "=== Debug: PKGConfig gem (Ruby) ==="
-          ruby -e "require 'pkg-config'; puts PKGConfig.cflags('arrow')"
-          ruby -e "require 'pkg-config'; puts PKGConfig.cflags('arrow-glib')"
+          echo "=== Debug: .pc files ==="
+          echo "--- arrow.pc ---"
+          ARROW_PC_DIR=$(pkg-config --variable=pcfiledir arrow)
+          echo "pcfiledir: ${ARROW_PC_DIR}"
+          cat "${ARROW_PC_DIR}/arrow.pc"
+          echo "--- arrow-glib.pc ---"
+          ARROW_GLIB_PC_DIR=$(pkg-config --variable=pcfiledir arrow-glib)
+          echo "pcfiledir: ${ARROW_GLIB_PC_DIR}"
+          cat "${ARROW_GLIB_PC_DIR}/arrow-glib.pc"
+          echo "=== Debug: arrow Requires.private .pc files ==="
+          for pkg in snappy libbrotlidec libbrotlienc zlib liblz4 libzstd re2 bzip2 libutf8proc; do
+            echo "--- ${pkg}.pc ---"
+            PC_DIR=$(pkg-config --variable=pcfiledir ${pkg} 2>/dev/null)
+            if [ -n "${PC_DIR}" ]; then
+              cat "${PC_DIR}/${pkg}.pc"
+            else
+              echo "not found"
+            fi
+          done
+          echo "=== Debug: pkg-config --cflags for each dependency ==="
+          for pkg in snappy libbrotlidec libbrotlienc zlib liblz4 libzstd re2 bzip2 libutf8proc; do
+            echo "--- ${pkg} ---"
+            pkg-config --cflags ${pkg} 2>/dev/null || echo "not found"
+          done
+          echo "=== Debug: re2 Requires (absl) .pc files ==="
+          for pkg in absl_absl_check absl_absl_log absl_base absl_core_headers absl_fixed_array absl_flags absl_flat_hash_map absl_flat_hash_set absl_hash absl_inlined_vector absl_optional absl_span absl_str_format absl_strings absl_synchronization; do
+            echo "--- ${pkg}.pc ---"
+            PC_DIR=$(pkg-config --variable=pcfiledir ${pkg} 2>/dev/null)
+            if [ -n "${PC_DIR}" ]; then
+              cat "${PC_DIR}/${pkg}.pc"
+            else
+              echo "not found"
+            fi
+          done
           echo "=== Debug: end ==="
           ruby -e "require 'arrow'"
       - name: Prepare setup-extpp.rb
