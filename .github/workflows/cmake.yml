@@ -210,6 +210,12 @@ jobs:
               echo "not found"
             fi
           done
+          echo "=== Debug: arrow requires ==="
+          pkg-config --print-requires arrow || echo "(none)"
+          echo "=== Debug: arrow requires-private ==="
+          pkg-config --print-requires-private arrow || echo "(none)"
+          echo "=== Debug: pkgconf --debug --cflags arrow (first 500 lines) ==="
+          pkgconf --debug --cflags arrow 2>&1 | head -500
           echo "=== Debug: end ==="
           ruby -e "require 'arrow'"
       - name: Prepare setup-extpp.rb
