@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1765173323809,
+  "lastUpdate": 1765177778080,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -2958,6 +2958,108 @@ window.BENCHMARK_DATA = {
             "value": 0.022256504000012,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.0021230000000002636 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "3c3072fee0e1ec26cd93b89f36729c3b16345c86",
+          "message": "cmake: require CMake >= 3.24 for bundled OpenZL\n\nOpenZL uses DOWNLOAD_EXTRACT_TIMESTAMP option internally which\nrequires CMake 3.24 or later. On older CMake versions (e.g., Ubuntu\n22.04's CMake 3.22), this causes build failures.\n\nThis change disables bundled OpenZL on CMake < 3.24.",
+          "timestamp": "2025-12-08T15:59:37+09:00",
+          "tree_id": "f9889a415756ec59ba28adfa0fac3e8a6bf07dfd",
+          "url": "https://github.com/otegami/groonga/commit/3c3072fee0e1ec26cd93b89f36729c3b16345c86"
+        },
+        "date": 1765177777040,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.3504389239999739,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.015391999999999906 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.26348332000000596,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.012904999999999528 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.015034520000057228,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00035300000000026976 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.014999623999983669,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0003999999999999282 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.524278191999997,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.00035600000000016174 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.21947041499993247,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0058789999999998704 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.13162657999998828,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.005463999999999913 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.01638603999992938,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0014789999999999803 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.024877767000020867,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015710000000002111 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.061797838000018146,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006880999999999873 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.06451490699998885,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007571999999999968 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.017176654999957464,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0016039999999999666 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.024596003000056044,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.001505000000000395 s\nthreads: undefined"
           }
         ]
       }
