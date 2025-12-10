@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1765351107363,
+  "lastUpdate": 1765351711352,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -3570,6 +3570,108 @@ window.BENCHMARK_DATA = {
             "value": 0.019686564999801703,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.0016700000000003934 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "c7aa7cd09b72ce1e54d0f912b25f50a927c72270",
+          "message": "lib: suppress -Wtypedef-redefinition for compressor.c with OpenZL\n\nOpenZL headers have duplicate typedef definitions that\ntrigger -Wtypedef-redefinition on Clang. This is an\nupstream issue in OpenZL where the same types are\ndefined in both zl_opaque_types.h and other headers\nlike zl_graph_api.h, zl_compressor.h, etc.\n\n```\n/home/runner/work/groonga/groonga.build/_deps/openzl-src/include/openzl/zl_graph_api.h:48:27: error: redefinition of typedef 'ZL_Graph' is a C11 feature [-Werror,-Wtypedef-redefinition]\n   48 | typedef struct ZL_Graph_s ZL_Graph;\n      |                           ^\n/home/runner/work/groonga/groonga.build/_deps/openzl-src/include/openzl/zl_opaque_types.h:49:27: note: previous definition is here\n   49 | typedef struct ZL_Graph_s ZL_Graph;\n      |                           ^\nIn file included from /home/runner/work/groonga/groonga/lib/compressor.c:46:\n```",
+          "timestamp": "2025-12-10T16:24:47+09:00",
+          "tree_id": "714151af19c046deabb79002b30e54a5b7d9863e",
+          "url": "https://github.com/otegami/groonga/commit/c7aa7cd09b72ce1e54d0f912b25f50a927c72270"
+        },
+        "date": 1765351710493,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.33805510699994556,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.011015999999999956 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.24607409499998312,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00976099999999995 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.01540405000000078,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0002850000000001046 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.013241200000038589,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00039200000000001733 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.7661102470000003,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.00016100000000007775 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.21307829300002368,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.008284 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.11557476400000155,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006866000000000302 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.016231244000010747,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0014199999999997687 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.01415198999998779,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0012499999999997513 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.05802550599997858,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007593000000000086 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.05785095400003115,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.008985000000000354 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.01822863000001007,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015379999999997618 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.015716731999987132,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015480000000002297 s\nthreads: undefined"
           }
         ]
       }
