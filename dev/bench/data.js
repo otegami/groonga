@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1765352633277,
+  "lastUpdate": 1765421273174,
   "repoUrl": "https://github.com/otegami/groonga",
   "entries": {
     "Benchmark": [
@@ -3774,6 +3774,108 @@ window.BENCHMARK_DATA = {
             "value": 0.026343269000108194,
             "unit": "s/iter",
             "extra": "iterations: 5\ncpu: 0.001637000000000527 s\nthreads: undefined"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "committer": {
+            "email": "otegami@clear-code.com",
+            "name": "otegami",
+            "username": "otegami"
+          },
+          "distinct": true,
+          "id": "368a89e1d57d5fc6aea61b8e258d367efd8fdaf8",
+          "message": "lib: move Clang specific warning suppression out of `GRN_C_COMPILER_GNU_LIKE` block\n\nThe `-Wno-typedef-redefinition` flag is Clang specific\nand not recognized by GCC.\n\n```\ngcc -Wtypedef-redefinition -c /dev/null\ngcc: error: unrecognized command-line option ‘-Wtypedef-redefinition’\n```\n\nSince the CMAKE_C_COMPILER_ID check already ensures\nthis only applies to Clang, there's no need to nest it\nwithin GRN_C_COMPILER_GNU_LIKE.",
+          "timestamp": "2025-12-11T11:41:39+09:00",
+          "tree_id": "1b5db887f24725da1f0345659dffce8aff96dd17",
+          "url": "https://github.com/otegami/groonga/commit/368a89e1d57d5fc6aea61b8e258d367efd8fdaf8"
+        },
+        "date": 1765421272176,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "stdio: json|json: load/data/multiple",
+            "value": 0.376876105000008,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0172889999999999 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: load/data/short_text",
+            "value": 0.28019255600003135,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.015185000000000448 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/multiple",
+            "value": 0.01569777799994654,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.00037599999999998746 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: select/olap/n_workers/multiple",
+            "value": 0.01660780099996373,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0004259999999999542 s\nthreads: undefined"
+          },
+          {
+            "name": "stdio: json|json: wal_recover/db/auto_recovery/column/index",
+            "value": 1.5173249840000267,
+            "unit": "s/iter",
+            "extra": "iterations: 1\ncpu: 0.00017000000000000348 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/multiple",
+            "value": 0.24447116600015306,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006687999999999916 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: load/data/short_text",
+            "value": 0.14641850300006354,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.006696000000000257 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/multiple",
+            "value": 0.01786965500008364,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0016240000000000143 s\nthreads: undefined"
+          },
+          {
+            "name": "http: json|json: select/olap/n_workers/multiple",
+            "value": 0.01684648000002653,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0014830000000001509 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/multiple",
+            "value": 0.06317555900000116,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0062830000000000386 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: load/data/short_text",
+            "value": 0.06760132599993085,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.007154999999999745 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/multiple",
+            "value": 0.017430059999924197,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0015129999999999033 s\nthreads: undefined"
+          },
+          {
+            "name": "http: apache-arrow|apache-arrow: select/olap/n_workers/multiple",
+            "value": 0.026346701999898414,
+            "unit": "s/iter",
+            "extra": "iterations: 5\ncpu: 0.0016569999999998808 s\nthreads: undefined"
           }
         ]
       }
